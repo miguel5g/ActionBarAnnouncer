@@ -1,6 +1,7 @@
 package dev.miguel5g.actionbarannouncer.events;
 
 import dev.miguel5g.actionbarannouncer.ActionBarAnnouncer;
+import dev.miguel5g.actionbarannouncer.ChatUtils;
 import dev.miguel5g.actionbarannouncer.MessagesManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,11 +27,9 @@ public class PlayerJoinListener implements Listener {
         boolean isEnableFirstJoinMessage = MessagesManager.instance.firstJoinMessage != null;
         boolean isEnableJoinMessage = MessagesManager.instance.joinMessage != null;
 
+        if (!(isFirstJoin && isEnableFirstJoinMessage) && !isEnableJoinMessage) return;
 
-        if (isFirstJoin && !isEnableFirstJoinMessage && !isEnableJoinMessage) return;
-
-        boolean isPlaySoundEnable = (isFirstJoin && isEnableFirstJoinMessage && MessagesManager.instance.isEnableFirstJoinSound)
-                || (isEnableJoinMessage && MessagesManager.instance.isEnableJoinSound);
+        boolean isPlaySoundEnable = (isFirstJoin && isEnableFirstJoinMessage && MessagesManager.instance.isEnableFirstJoinSound) || (isEnableJoinMessage && MessagesManager.instance.isEnableJoinSound);
 
         String message = ((isFirstJoin && isEnableFirstJoinMessage)
                 ? MessagesManager.instance.firstJoinMessage
