@@ -1,5 +1,19 @@
-interval: 5 # In seconds
 messages:
-  - '&aBem vindo ao servidor!'
-  - '&eVocê é especial para nós!'
-  - '&eEntre na nossa comunidade do discord &6/discord&e!'
+  no_permission: '&cYou do not have permission to run this command.'
+  invalid_subcommand: '&cIncorrect use! Try to use &4/aba help&c.'
+  reload_success: '&aSettings reloaded successfully!'
+
+player_join:
+  play_sound: true
+  message: '&eWelcome back' # Empty to disable
+
+player_first_join:
+  play_sound: true
+  message: '&eWelcome &f&l<player>&e!' # Empty to disable
+
+announcer:
+  interval: 30 # In seconds
+  play_sound: true
+  messages:
+    - '&eThanks for using this plugin'
+    - '&efollow me on github &6miguel5g'
