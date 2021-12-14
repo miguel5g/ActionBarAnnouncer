@@ -1,5 +1,6 @@
 package dev.miguel5g.actionbarannouncer;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class ChatUtils {
@@ -7,5 +8,9 @@ public class ChatUtils {
 
     public static String parseColors(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
+    }
+
+    public static void logger(String message) {
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatUtils.PREFIX + message);
     }
 }

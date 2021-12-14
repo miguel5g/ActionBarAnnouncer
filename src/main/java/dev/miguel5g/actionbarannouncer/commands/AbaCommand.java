@@ -2,11 +2,17 @@ package dev.miguel5g.actionbarannouncer.commands;
 
 import dev.miguel5g.actionbarannouncer.ChatUtils;
 import dev.miguel5g.actionbarannouncer.MessagesManager;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 
-public class AbaCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class AbaCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("aba.admin")) {
@@ -57,5 +63,28 @@ public class AbaCommand implements CommandExecutor {
 
         sender.sendMessage("§cUso incorreto! Tente utilizar §4/aba help§c.");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length > 1) return null;
+
+        List<String> completions = new ArrayList<>();
+        List<String> result = new ArrayList<>();
+
+        completions.add("help");
+        completions.add("reload");
+        completions.add("internal");
+        completions.add("messages");
+
+        if (args.length == 1) {
+            completions.forEach((completion) -> {
+                if (completion.startsWith(args[0])) result.add(completion);
+            });
+
+            return result;
+        };
+
+        return null;
     }
 }

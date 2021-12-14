@@ -36,10 +36,7 @@ public class MessagesManager {
         // Display the number of messages loaded in the console
         int messagesLength = this.messages.toArray().length;
 
-        this.plugin
-                .getServer()
-                .getConsoleSender()
-                .sendMessage(ChatUtils.PREFIX + "§7Loaded §f" + messagesLength + "§7 messages from config");
+        ChatUtils.logger("§7Loaded §f" + messagesLength + "§7 messages from config");
     }
 
     private void setInterval() {
@@ -73,6 +70,8 @@ public class MessagesManager {
     }
 
     public void reload() {
+        ChatUtils.logger("§7Reloading plugin");
+
         this.currentIndex = 0;
         this.interval = 0;
         this.messages = null;
