@@ -4,6 +4,8 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
@@ -21,6 +23,9 @@ public class MessagesManager {
     public HashMap<String, String> messages = new HashMap<>();
     public String joinMessage;
     public String firstJoinMessage;
+    public boolean isEnableAnnouncerSound;
+    public boolean isEnableJoinSound;
+    public boolean isEnableFirstJoinSound;
 
     private MessagesManager(ActionBarAnnouncer plugin) {
         this.plugin = plugin;
@@ -38,8 +43,11 @@ public class MessagesManager {
 
         this.announcerInterval = config.getInt("announcer.interval", 10);
         this.announcerMessages = config.getStringList("announcer.messages");
+        this.isEnableAnnouncerSound = config.getBoolean("announcer.play_sound", true);
         this.joinMessage = ChatUtils.parseColors(config.getString("player_join.message", null));
         this.firstJoinMessage = ChatUtils.parseColors(config.getString("player_first_join.message", null));
+        this.isEnableJoinSound = config.getBoolean("player_join.play_sound", true);
+        this.isEnableFirstJoinSound = config.getBoolean("player_first_join.play_sound", true);
 
         int messagesLength = this.announcerMessages.toArray().length;
 
@@ -56,11 +64,15 @@ public class MessagesManager {
             if (this.announcerMessages.toArray().length == this.currentIndex) this.currentIndex = 0;
 
             String rawMessage = this.announcerMessages.get(this.currentIndex);
-            BaseComponent[] message = TextComponent.fromLegacyText(ChatUtils.parseColors(rawMessage));
 
             Bukkit
                     .getOnlinePlayers()
-                    .forEach((player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, message)));
+                    .forEach((player -> {
+                        BaseComponent[] message = TextComponent.fromLegacyText(ChatUtils.parseColors(rawMessage.replaceAll("<player>", player.getDisplayName())));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, message);
+                        if (this.isEnableAnnouncerSound)
+                            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
+                    }));
 
             this.currentIndex++;
         };
