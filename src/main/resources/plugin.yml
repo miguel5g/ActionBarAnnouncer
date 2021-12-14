@@ -1,0 +1,10 @@
+name: ActionBarAnnouncer
+version: '${version}'
+main: dev.miguel5g.actionbarannouncer.ActionBarAnnouncer
+api-version: 1.17
+description: A simple action bar annoucer with custom configuration
+
+commands:
+  aba:
+    description: Action Bar Announcer base command
+    usage: /<command> <subcommand>
