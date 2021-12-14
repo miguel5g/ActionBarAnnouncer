@@ -7,6 +7,8 @@ public class ChatUtils {
     public static final String PREFIX = "§a[ActionBarAnnouncer] §r";
 
     public static String parseColors(String text) {
+        if (text == null) return null;
+
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 

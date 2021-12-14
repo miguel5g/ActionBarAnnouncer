@@ -37,14 +37,13 @@ public class MessagesManager {
         messages.put("reload_success", ChatUtils.parseColors(config.getString("messages.reload_success", "&aSettings reloaded successfully!")));
 
         this.announcerInterval = config.getInt("announcers.interval", 10);
-        this.announcerMessages = config.getStringList("announcers.messages");
-        this.joinMessage = ChatUtils.parseColors(config.getString("player_join.message"));
-        this.firstJoinMessage = ChatUtils.parseColors(config.getString("player_first_join.message"));
+        this.announcerMessages = config.getStringList("announcer.messages");
+        this.joinMessage = ChatUtils.parseColors(config.getString("player_join.message", null));
+        this.firstJoinMessage = ChatUtils.parseColors(config.getString("player_first_join.message", null));
 
         int messagesLength = this.announcerMessages.toArray().length;
 
         if (this.joinMessage != null) messagesLength++;
-
         if (this.firstJoinMessage != null) messagesLength++;
 
         ChatUtils.logger("§7Loaded §f" + messagesLength + "§7 messages from config");
