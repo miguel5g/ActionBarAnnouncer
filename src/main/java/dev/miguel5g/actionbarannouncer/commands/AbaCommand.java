@@ -44,7 +44,7 @@ public class AbaCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length > 1) return null;
+        if (args.length > 1) return new ArrayList<>();
 
         List<String> completions = new ArrayList<>();
         List<String> result = new ArrayList<>();
@@ -60,6 +60,6 @@ public class AbaCommand implements CommandExecutor, TabCompleter {
             return result;
         };
 
-        return null;
+        return new ArrayList<>();
     }
 }
